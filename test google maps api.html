@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+
+
+<script>
+var map;
+var service;
+var infowindow;
+
+function initialize() {
+  var nyc = new google.maps.LatLng(40.7590615,-73.969231);
+
+  map = new google.maps.Map(document.getElementById('map'), {
+      center: nyc,
+      zoom: 15
+    });
+
+  var request = {
+    location: nyc,
+    radius: '500',
+    query: ‘restaurant’
+  };
+
+  service = new google.maps.places.PlacesService(map);
+  service.textSearch(request, callback);
+}
+
+function callback(results, status) {
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    for (var i = 0; i < results.length; i++) {
+      var place = results[i];
+      createMarker(results[i]);
+    }
+  }
+}</script>
+</head>
+
+<body>
+<div id="googleMap" style="width:500px;height:380px;"></div>
+
+</body>
+</html>
